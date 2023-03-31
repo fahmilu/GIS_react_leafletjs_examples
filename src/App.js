@@ -1,24 +1,14 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import Map from "./Map/Map";
+import "leaflet/dist/leaflet.css";
+import "./css/app.css";
+import "antd/dist/reset.css"
+import 'leaflet.markercluster/dist/MarkerCluster.css';
+import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+        <Map/>
   );
 }
 
