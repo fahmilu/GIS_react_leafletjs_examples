@@ -1,6 +1,11 @@
 import { useEffect } from "react";
 import axios from "axios";
 
+//axios.defaults.withCredentials = true; // Enable sending cookies with requests
+
+//axios.defaults.xsrfCookieName = "csrftoken";
+//axios.defaults.xsrfHeaderName = "X-CSRFToken";
+
 export const Logout = () => {
   useEffect(() => {
     (async () => {

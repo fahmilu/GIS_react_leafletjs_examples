@@ -26,6 +26,7 @@ function App() {
         </Routes>
       </BrowserRouter>;
       {/*<Map />*/}
+
       <Map />
     </div>
   );

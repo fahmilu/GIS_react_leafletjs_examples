@@ -1,6 +1,11 @@
 import axios from "axios";
 import { useState } from "react";
 
+//axios.defaults.withCredentials = true;
+
+//axios.defaults.xsrfCookieName = "csrftoken";
+//axios.defaults.xsrfHeaderName = "X-CSRFToken";
+
 export const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
