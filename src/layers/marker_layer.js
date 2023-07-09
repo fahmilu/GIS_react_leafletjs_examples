@@ -82,6 +82,7 @@ const MarkerLayer = ({ data, setRadiusFilter1, getRadiusFilterP, getGeoFilter })
                 const { coordinates } = currentFeature.geometry;
                 const currentPoint = L.latLng(coordinates[1], coordinates[0]);
                 filterByRadius = centerPoint.distanceTo(currentPoint) / 1000 < radiusFilter.radius
+                console.log(centerPoint.distanceTo(currentPoint) / 1000 < radiusFilter.radius);
             }
             if (geoFilter) {
                 filterByGeo = booleanPointInPolygon(currentFeature, geoFilter) //this one from thirdparty library for this clip/intersect

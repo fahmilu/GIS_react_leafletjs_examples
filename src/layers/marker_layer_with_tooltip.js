@@ -1,6 +1,6 @@
 import React from "react";
 import { LayersControl, LayerGroup, Marker, Tooltip, useMap } from "react-leaflet";
-import { mountainIcon } from "../icons/mountainIcon"
+import { mountainIcon } from "../icons/mountainIcon";
 
 const MarkerLayerWithTooltip = ({ data }) => {
   const leafletMap = useMap();

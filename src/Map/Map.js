@@ -89,8 +89,8 @@ const Map = () => {
         >
           <WMSTileLayer
 
-            url='http://192.168.56.3:8080/geoserver/wms'
-            layers='nurc:Img_Sample'
+            url='http://192.168.56.77:8080/geoserver/wms'
+            layers='Catalyze:ImageMosaic_DEM'
             format="image/png"
             transparent={true}
           />
