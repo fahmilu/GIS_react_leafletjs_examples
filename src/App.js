@@ -17,7 +17,7 @@ import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
 function App() {
   return (
     <div>
-      <BrowserRouter>
+      {/*<BrowserRouter>
         <Navigation></Navigation>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -26,6 +26,7 @@ function App() {
         </Routes>
       </BrowserRouter>;
       {/*<Map />*/}
+      <Home />
 
       <Map />
     </div>
