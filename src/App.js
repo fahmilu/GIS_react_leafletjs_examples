@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { Login } from "./login/login";
 import { Home } from "./login/home";
 import { Logout } from './login/logout';
+import OAuth2CallbackPage from "./login/callback";
 
 
 import Map from "./Map/Map";
@@ -17,16 +18,16 @@ import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
 function App() {
   return (
     <div>
-      {/*<BrowserRouter>
+      <BrowserRouter>
         <Navigation></Navigation>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/logout" element={<Logout />} />
+          <Route path="/login-geonode/" element= {<OAuth2CallbackPage />} />
         </Routes>
       </BrowserRouter>;
       {/*<Map />*/}
-      <Home />
 
       <Map />
     </div>

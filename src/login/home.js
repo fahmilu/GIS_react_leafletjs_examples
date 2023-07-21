@@ -1,91 +1,167 @@
 // Import the react JS packages
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import axios from "axios";
+
+
+//axios.defaults.withCredentials = true; // Enable sending cookies with requests
+
+//axios.defaults.xsrfCookieName = "csrftoken";
+//axios.defaults.xsrfHeaderName = "X-CSRFToken";
+
 // Define the Login function.
-/*
-// THIS ONE IS FOR JWT FUNCTION
-export const Home = () => {
-     const [message, setMessage] = useState('');
-     useEffect(() => {
-        if(localStorage.getItem('access_token') === null){                   
-            window.location.href = '/login'
-        }
-        else{
-         (async () => {
-           try {
-             const token = localStorage.getItem("access_token")
-             const {data} = await axios.get(   
-                            'http://192.168.56.5:8000/jwt/', {
-                             headers: {
-                                'Content-Type': 'application/json',
-                                'Authorization': `Bearer ${token}`,
-                             }}
-                           );
-             setMessage(data.message);
 
-             console.log(localStorage.getItem('access_token'))
-          } catch (e) {
-            console.log('not auth')
-          }
-         })()};
-     }, []);
-     return (
-        <div className="form-signin mt-5 text-center">
-          <h3>Hi {message}</h3>
-          <iframe src="http://192.168.56.5:8000/maps/5/embed" height="1000" width="1000" title="Iframe Example"></iframe>
-        </div> )
-}
-
-
-// ...
-*/
-
-axios.defaults.withCredentials = true; // Enable sending cookies with requests
-
-axios.defaults.xsrfCookieName = "csrftoken";
-axios.defaults.xsrfHeaderName = "X-CSRFToken";
-
-// Set the base URL for your API requests
-//axios.defaults.baseURL = "http://192.168.56.5:8000";
+const CONFIG = {
+  TOKEN_ENDPOINT: "http://192.168.56.5:8000/o/token/",
+  AUTHORIZE_ENDPOINT: "http://192.168.56.5:8000/o/authorize/",
+  RESPONSE_TYPE: "code",
+  SCOPE: "openid",
+  REDIRECT_URI: "http://192.168.56.5:3000/login-geonode",
+  CLIENT_ID: "HpK94cv5bSqdgItYXftaOcLIhW00oDWqe0hVty3u",
+  CLIENT_SECRET: "yCmhMewgaJA3sC8Hh1MTUjr7jzjpTAzkUnyGBCFlSfAmrpfeD8E6kZiShVpp40xMclqsJ6GbbMzMxUrTVuvqQiTir3DD85sZxAdkzP4Sx1W2hXxjpMWKLH5OUG01zMZZ",
+  GRANT_TYPE: "authorization_code",
+  CLIENT_URL: "http://192.168.56.5:3000",
+  LOGOUT_URL: "http://192.168.56.5:3000/logout",
+  COOKIE_PATH: "/"
+};
 
 export const Home = () => {
     const [message, setMessage] = useState('');
-  
+    const code = localStorage.getItem('code');
+
     useEffect(() => {
       
-        fetchData();
+      if (localStorage.getItem('access_token') === null) {
+        window.location.href = '/login'
       }
-    , []);
-  
-    const fetchData = async () => {
-      try {
-        
-        const response = await axios.get('http://192.168.56.5:8000/jwt/', {
-          headers: {
-            'Content-Type': 'application/json',
+      else {
+        (async () => {
+          try {
+            const token = localStorage.getItem('access_token');         
+
+            console.log(localStorage);
+
+            const { data } = await axios.get(
+              'http://192.168.56.5:8000/jwt/', {
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+              }
+            }
+            );
+            setMessage(data.message);
+
+            //console.log(localStorage.getItem('access_token'))
+          } catch (e) {
+            console.log('not auth')
           }
-        });
+        })()
+      };
+    }, []);
+
+    const handleLogin = useCallback(async () => {
+
+      const reqParams = [
+        `response_type=${CONFIG.RESPONSE_TYPE}`,
+        `client_id=${CONFIG.CLIENT_ID}`,
+        `redirect_uri=${CONFIG.REDIRECT_URI}`,
+      ].join("&");  // joining into single text with & in the middle
   
-        const data = response.data; // Check the structure of the response object
-        console.log('Response data:', data);
-  
-        // Update the state based on the correct property name from the response
-        setMessage(data.message);
-  
-        console.log('Access Token:', localStorage.getItem('access_token'));
-      } catch (error) {
-        console.log('Error:', error);
+      try {
+        const response = await fetch(`${CONFIG.AUTHORIZE_ENDPOINT}?${reqParams}`);
+        const url = await response.text();
+        const url_noawait = `${CONFIG.AUTHORIZE_ENDPOINT}?${reqParams}`;
+        window.location.assign(url);
+        window.open(url_noawait, '_blank')
+      } catch (e) {
+        console.error(e);
       }
-    };
+  
+    }, []);
+  
   
     return (
       <div className="form-signin mt-5 text-center">
         <h3>Hi {message}</h3>
+        {code === null && <button onClick={handleLogin}>OAUTH2_AUTHORIZE</button>}
         <iframe src="http://192.168.56.5:8000/maps/5/embed" height="1000" width="1000" title="Iframe Example"></iframe>
-      </div>
-    );
-  };
+      </div>)
+  }
+
+  /*
+  // THIS ONE IS FOR JWT FUNCTION
+  export const Home = () => {
+       const [message, setMessage] = useState('');
+       useEffect(() => {
+          if(localStorage.getItem('access_token') === null){                   
+              window.location.href = '/login'
+          }
+          else{
+           (async () => {
+             try {
+               const token = localStorage.getItem("access_token")
+               const {data} = await axios.get(   
+                              'http://192.168.56.5:8000/jwt/', {
+                               headers: {
+                                  'Content-Type': 'application/json',
+                                  'Authorization': `Bearer ${token}`,
+                               }}
+                             );
+               setMessage(data.message);
   
-  
-  
-  
+               console.log(localStorage.getItem('access_token'))
+            } catch (e) {
+              console.log('not auth')
+            }
+           })()};
+       }, []);
+       return (
+          <div className="form-signin mt-5 text-center">
+            <h3>Hi {message}</h3>
+            <iframe src="http://192.168.56.5:8000/maps/5/embed" height="1000" width="1000" title="Iframe Example"></iframe>
+          </div> )
+  }
+  */
+
+  // ...
+
+  // Set the base URL for your API requests
+  //axios.defaults.baseURL = "http://192.168.56.5:8000";
+  /*
+  export const Home = () => {
+      const [message, setMessage] = useState('');
+    
+      useEffect(() => {
+        
+          fetchData();
+        }
+      , []);
+    
+      const fetchData = async () => {
+        try {
+          
+          const response = await axios.get('http://192.168.56.5:8000/jwt/', {
+            headers: {
+              'Content-Type': 'application/json',
+            }
+          });
+    
+          const data = response.data; // Check the structure of the response object
+          console.log('Response data:', data);
+    
+          // Update the state based on the correct property name from the response
+          setMessage(data.message);
+    
+          console.log('Access Token:', localStorage.getItem('access_token'));
+        } catch (error) {
+          console.log('Error:', error);
+        }
+      };
+    
+      return (
+        <div className="form-signin mt-5 text-center">
+          <h3>Hi {message}</h3>
+          <iframe src="http://192.168.56.5:8000/maps/5/embed" height="1000" width="1000" title="Iframe Example"></iframe>
+        </div>
+      );
+    };
+    */
