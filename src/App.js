@@ -7,6 +7,8 @@ import { Home } from "./login/home";
 import { Logout } from './login/logout';
 import OAuth2CallbackPage from "./login/callback";
 
+import Register from "./login/register";
+
 import Map from "./Map/Map";
 
 import "leaflet/dist/leaflet.css";
@@ -25,6 +27,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="/login-geonode/" element= {<OAuth2CallbackPage />} />
+          <Route path="/register" element={<Register/>}/>
         </Routes>
       </BrowserRouter>;
       {/*<Map/>*/}

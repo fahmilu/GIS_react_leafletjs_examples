@@ -12,8 +12,11 @@ const CONFIG = {
     COOKIE_PATH: "/",
     EXAMPLE_HOME: 'http://192.168.56.5:8000/catalyze/jwt/',
     EXAMPLE_IFRAME: "http://192.168.56.5:8000/maps/5/embed",
-    JWT_TOKEN_LOGIN:  "http://192.168.56.5:8000/catalyze/token/",
+    //JWT_TOKEN_LOGIN:  "http://192.168.56.5:8000/catalyze/token/",
+    JWT_TOKEN_LOGIN:  "http://192.168.56.5:8000/catalyze/login/",
     JWT_LOGOUT: 'http://192.168.56.5:8000/catalyze/logout/',
+    JWT_REGISTER: 'http://192.168.56.5:8000/catalyze/register/',
+    USER_INFO_GEONODE_URL: 'http://192.168.56.5:8000/api/o/v4/userinfo',
 
   };
 

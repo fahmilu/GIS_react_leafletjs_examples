@@ -69,7 +69,8 @@ export const Home = () => {
 
   return (
     <div>
-      {code != null && <Map />}
+      {/*code != null && <Map />*/}
+      {localStorage.getItem('login_token') != null && <Map />}
       <div className="form-signin mt-5 text-center">
         <h3>Hi {message}</h3>
         {code === null && <button onClick={handleLogin}>OAUTH2_AUTHORIZE</button>}
