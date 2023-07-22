@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import axios from "axios";
+import CONFIG from "../config";
 
 //axios.defaults.withCredentials = true; // Enable sending cookies with requests
 
@@ -16,7 +17,7 @@ export const Logout = () => {
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
         
         const { data } = await axios.post(
-          "http://192.168.56.5:8000/catalyze/logout/",
+          CONFIG.JWT_LOGOUT,
           { refresh: localStorage.getItem("refresh_token") },
           { withCredentials: true }
         );

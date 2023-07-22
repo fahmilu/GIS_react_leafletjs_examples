@@ -1,28 +1,17 @@
 // Import the react JS packages
 import { useEffect, useState, useCallback } from "react";
 import axios from "axios";
+import CONFIG from "../config";
 
+import Map from "../Map/Map";
 
+// if django session authenticated enabled
 //axios.defaults.withCredentials = true; // Enable sending cookies with requests
 
 //axios.defaults.xsrfCookieName = "csrftoken";
 //axios.defaults.xsrfHeaderName = "X-CSRFToken";
 
 // Define the Login function.
-
-const CONFIG = {
-  TOKEN_ENDPOINT: "http://192.168.56.5:8000/o/token/",
-  AUTHORIZE_ENDPOINT: "http://192.168.56.5:8000/o/authorize/",
-  RESPONSE_TYPE: "code",
-  SCOPE: "openid",
-  REDIRECT_URI: "http://192.168.56.4:3000/login-geonode",
-  CLIENT_ID: "HpK94cv5bSqdgItYXftaOcLIhW00oDWqe0hVty3u",
-  CLIENT_SECRET: "yCmhMewgaJA3sC8Hh1MTUjr7jzjpTAzkUnyGBCFlSfAmrpfeD8E6kZiShVpp40xMclqsJ6GbbMzMxUrTVuvqQiTir3DD85sZxAdkzP4Sx1W2hXxjpMWKLH5OUG01zMZZ",
-  GRANT_TYPE: "authorization_code",
-  CLIENT_URL: "http://192.168.56.4:3000",
-  LOGOUT_URL: "http://192.168.56.4:3000/logout",
-  COOKIE_PATH: "/"
-};
 
 export const Home = () => {
   const [message, setMessage] = useState('');
@@ -60,7 +49,7 @@ export const Home = () => {
           console.log(localStorage);
 
           const { data } = await axios.get(
-            'http://192.168.56.5:8000/catalyze/jwt/', {
+            CONFIG.EXAMPLE_HOME, {
             headers: {
               'Content-Type': 'application/json',
               'Authorization': `Bearer ${token}`,
@@ -75,18 +64,21 @@ export const Home = () => {
         }
       })()
     };
-      
+
   }, []);
 
   return (
-    <div className="form-signin mt-5 text-center">
-      <h3>Hi {message}</h3>
-      {code === null && <button onClick={handleLogin}>OAUTH2_AUTHORIZE</button>}
-      {code != null && (
-        <iframe
-          id='myIframe'
-          src="http://192.168.56.5:8000/maps/5/embed"
-          height="1000" width="1000" title="Iframe Example">
-        </iframe>)}
+    <div>
+      {code != null && <Map />}
+      <div className="form-signin mt-5 text-center">
+        <h3>Hi {message}</h3>
+        {code === null && <button onClick={handleLogin}>OAUTH2_AUTHORIZE</button>}
+        {code != null && (
+          <iframe
+            id='myIframe'
+            src={CONFIG.EXAMPLE_IFRAME}
+            height="1000" width="1000" title="Iframe Example">
+          </iframe>)}
+      </div>
     </div>);
 }

@@ -7,10 +7,10 @@ import { Home } from "./login/home";
 import { Logout } from './login/logout';
 import OAuth2CallbackPage from "./login/callback";
 
-
 import Map from "./Map/Map";
+
 import "leaflet/dist/leaflet.css";
-import "./css/app.css";
+import "./styles/app.scss";
 import "antd/dist/reset.css"
 import 'leaflet.markercluster/dist/MarkerCluster.css';
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
@@ -27,9 +27,7 @@ function App() {
           <Route path="/login-geonode/" element= {<OAuth2CallbackPage />} />
         </Routes>
       </BrowserRouter>;
-      {/*<Map />*/}
-
-      <Map />
+      {/*<Map/>*/}
     </div>
   );
 }
