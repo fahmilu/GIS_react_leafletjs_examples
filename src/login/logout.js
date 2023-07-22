@@ -16,7 +16,7 @@ export const Logout = () => {
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
         
         const { data } = await axios.post(
-          "http://192.168.56.5:8000/logout/",
+          "http://192.168.56.5:8000/catalyze/logout/",
           { refresh: localStorage.getItem("refresh_token") },
           { withCredentials: true }
         );

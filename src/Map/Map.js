@@ -89,8 +89,8 @@ const Map = () => {
         >
           <WMSTileLayer
 
-            url='http://192.168.56.77:8080/geoserver/wms'
-            layers='Catalyze:ImageMosaic_DEM'
+            url={`http://192.168.56.5:8080/geoserver/wms?access_token=${localStorage.getItem('access_token')}`}
+            layers='geonode:aoi_kawasan_hutan'
             format="image/png"
             transparent={true}
           />
